@@ -85,13 +85,14 @@ module Viewpoint::EWS::ItemAccessors
 
   # Move an array of items to the specified folder
   # @see #copy_items for parameter info
-  def move_items(items, folder)
+  def move_items(items, folder, opts)
     folder = folder.id if folder.kind_of?(Types::GenericFolder)
     item_ids = items.collect{|i| {item_id: {id: i.id, change_key: i.change_key}}}
     move_opts = {
       :to_folder_id => {:id => folder},
       :item_ids => item_ids
     }
+    move_opts.merge!(opts)
     resp = ews.move_item(move_opts)
     copy_move_items_parser(resp, :move_item_response_message)
   end
