@@ -278,7 +278,9 @@ module Viewpoint::EWS::SOAP
             builder.nbuild.parent.default_namespace = @default_ns
             builder.to_folder_id!(opts[:to_folder_id])
             builder.item_ids!(opts[:item_ids])
-            builder.return_new_item_ids!(return_new_ids)
+            if return_new_ids != nil
+              builder.return_new_item_ids!(return_new_ids)
+            end
           }
         end
       end
